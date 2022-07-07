@@ -89,7 +89,7 @@
         else if (Questions.Count == 1)
             CurrentQuestion = 0;
         else if (Questions.Count == 0)
-            ErrorString = "You won";
+            ErrorString = "You won. Click big blue button";
 
         if(Questions.Count !=0)
         {
@@ -132,7 +132,7 @@
         AnswersLeft.RemoveAt(CurrentQuestion);
         if(Questions.Count == 0)
         {
-            ErrorString = "You won";
+            ErrorString = "You won. Click big blue button";
             StateHasChanged();
         }
 
