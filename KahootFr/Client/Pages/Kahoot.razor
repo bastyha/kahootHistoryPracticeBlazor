@@ -1,0 +1,171 @@
+﻿@page "/"
+
+@inject HttpClient http
+@using KahootFr.Shared
+
+<div class="topRow">
+    <div @onclick="@SetAllToNullAsync">Töri kahoot</div>
+</div>
+<div class="mein">
+
+    @if (Data is null || Answers is null || Questions is null)
+    {
+        @if (Files is null)
+        {
+            <h1>Not good</h1>
+        }
+        else
+        {
+            @foreach (var i in Files)
+            {
+                <div @onclick="() => FileSetAync(i.Id)">@i.ShortFileName</div>
+            }
+
+        }
+
+        //<h1>Something went wrong...</h1>
+    }
+    else
+    {
+        if(WasCorrect is not null)
+        {
+            <KahootFr.Client.Components.InfoAboutCorrectOrNot WasCorrect="@WasCorrect" OnClose="()=> WasCorrect=null"></KahootFr.Client.Components.InfoAboutCorrectOrNot>
+        }
+
+
+        if (ErrorString is null)
+        {
+            <div>@ErrorString</div>
+        }
+        else if (Questions.Count == 0)
+        {
+            <div>You won</div>
+        }
+        else
+        {
+        <div class="kahootContainer">
+            <div class="Question">@Questions[CurrentQuestion]</div>
+            @foreach (var ans in PossibleAnswers)
+            {
+                <div class="answer" @onclick="(() => ans == CurrentAnswer ? OnCorrectAnswerAsync() : OnWrongAnswerAsync())">@ans</div>
+            }
+        </div>
+        }
+    }
+</div>
+
+
+@code{
+
+    private IEnumerable<ExcelFile> Files;
+
+    IEnumerable<IEnumerable<string>> Data;
+    List<string> Questions;
+    List<string> Answers;
+    List<string> AnswersLeft;
+
+    List<string> PossibleAnswers;
+
+    private bool? WasCorrect = null;
+
+    private Guid choosenId = new Guid();
+
+    private Random random = new Random();
+    private int CurrentQuestion = 0;
+    private string CurrentAnswer = "";
+
+    private string ErrorString = "";
+
+    protected async override Task OnInitializedAsync()
+    {
+        Files = await http.GetFromJsonAsync<IEnumerable<ExcelFile>>("excels");
+    }
+
+    private void LoadNewQuestion()
+    {
+
+        if (Questions.Count > 1)
+            CurrentQuestion = random.Next(0, Questions.Count);
+        else if (Questions.Count == 1)
+            CurrentQuestion = 0;
+        else if (Questions.Count == 0)
+            ErrorString = "You won";
+
+        if(Questions.Count !=0)
+        {
+            CurrentAnswer = AnswersLeft[CurrentQuestion];
+            PossibleAnswers = new List<string>();
+
+            List<string> _tempList = new List<string>(Answers);
+            _tempList.Remove(CurrentAnswer);
+
+            for (int i = 0; i < 3; i++)
+            {
+                int rng = random.Next(_tempList.Count);
+                PossibleAnswers.Add(_tempList[rng]);
+                _tempList.RemoveAt(rng);
+            }
+            PossibleAnswers.Insert(random.Next(PossibleAnswers.Count), CurrentAnswer);
+        }
+    }
+
+    protected async Task FileSetAync(Guid guid)
+    {
+        Data = await http.GetFromJsonAsync < IEnumerable<IEnumerable<string>>>($"excels/{guid}");
+        StateHasChanged();
+        if (Data is not null)
+        {
+            Questions = Data.ElementAt(0).ToList();
+            Answers = Data.ElementAt(1).ToList();
+            AnswersLeft = new List<string>(Answers);
+
+            LoadNewQuestion();
+
+        }
+        StateHasChanged();
+
+    }
+
+    protected async Task OnCorrectAnswerAsync()
+    {
+        Questions.RemoveAt(CurrentQuestion);
+        AnswersLeft.RemoveAt(CurrentQuestion);
+        if(Questions.Count == 0)
+        {
+            ErrorString = "You won";
+            StateHasChanged();
+        }
+
+        WasCorrect = true;
+
+
+        LoadNewQuestion();
+
+        StateHasChanged();
+    }
+
+    protected async Task OnWrongAnswerAsync()
+    {
+        WasCorrect = false;
+        LoadNewQuestion();
+
+        StateHasChanged();
+    }
+
+    protected async Task SetAllToNullAsync()
+    {
+        Questions = null;
+        Answers = null;
+        AnswersLeft = null;
+        Data = null;
+        choosenId = new Guid();
+        PossibleAnswers = new List<string>();
+
+        CurrentQuestion = 0;
+        CurrentAnswer = "";
+
+        Files = await http.GetFromJsonAsync<IEnumerable<ExcelFile>>("excels");
+        StateHasChanged();
+    }
+
+}

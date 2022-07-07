@@ -1,0 +1,29 @@
+﻿<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8)" aria-modal="true" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @if (WasCorrect == true)
+            {
+                <div class="modal-header">Correct</div>
+
+            }
+            else
+            {
+                <div class="modal-header">No</div>
+            }
+            <div class="modal-body">
+                <button type="button" class="btn btn-primary" @onclick="@ModalOK">ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code{
+    [Parameter] public bool? WasCorrect { get; set; }
+    [Parameter] public EventCallback<bool> OnClose { get; set; }
+    private Task ModalOK()
+    {
+        return OnClose.InvokeAsync(true);
+    }
+
+}

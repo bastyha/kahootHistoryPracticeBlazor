@@ -1,0 +1,39 @@
+﻿
+
+.topRow{
+    background-color:blue; 
+    text-align:center;  
+    font-size:24px; 
+    color:white;  
+    height: 35px; 
+    width:500px;
+    border-radius:50px 50px 50px 50px;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom:20px;
+    margin-top:5px;
+}
+
+.mein{
+    text-align:center;
+}
+
+.kahootContainer{
+    display:grid;
+    grid-template-columns:50% 50%;
+    grid-gap:10px;
+    vertical-align:middle;
+
+}
+.Question{
+    grid-column-start:1;
+    grid-column-end:3;
+    background-color:red;
+}
+.answer {
+    background-color: greenyellow;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}

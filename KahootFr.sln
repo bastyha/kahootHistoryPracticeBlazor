@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KahootFr.Server", "KahootFr\Server\KahootFr.Server.csproj", "{EDB0A14B-8C93-4406-B0AC-38F659CC7FB4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KahootFr.Client", "KahootFr\Client\KahootFr.Client.csproj", "{7E18BF58-F50A-4306-A843-56CD1C1A8FE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KahootFr.Shared", "KahootFr\Shared\KahootFr.Shared.csproj", "{05BB659A-85BA-4E83-9C0F-31A856A41113}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDB0A14B-8C93-4406-B0AC-38F659CC7FB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDB0A14B-8C93-4406-B0AC-38F659CC7FB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDB0A14B-8C93-4406-B0AC-38F659CC7FB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDB0A14B-8C93-4406-B0AC-38F659CC7FB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E18BF58-F50A-4306-A843-56CD1C1A8FE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E18BF58-F50A-4306-A843-56CD1C1A8FE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E18BF58-F50A-4306-A843-56CD1C1A8FE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E18BF58-F50A-4306-A843-56CD1C1A8FE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05BB659A-85BA-4E83-9C0F-31A856A41113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05BB659A-85BA-4E83-9C0F-31A856A41113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05BB659A-85BA-4E83-9C0F-31A856A41113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05BB659A-85BA-4E83-9C0F-31A856A41113}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6746E276-F4A5-429F-A311-1434A4D0E95C}
+	EndGlobalSection
+EndGlobal
